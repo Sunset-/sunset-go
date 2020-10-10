@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/Sunset-/sunset-go/utils/randoms"
+	"github.com/Sunset-/sunset-go/utils/casts"
 )
 
-func main(){
-	fmt.Println(len(randoms.RandomIntStr(32)))
+func main() {
+	fmt.Println(casts.StrToInt32("32"))
 
 }
