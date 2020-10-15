@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	fmt.Println(casts.StrToInt32("32"))
+	fmt.Println(casts.FloatToInt(casts.StrToFloat64("-32.663")))
 
 }
