@@ -23,7 +23,7 @@ var httpClient = &http.Client{
 	Timeout: 30 * time.Second,
 }
 
-func NewHttpClient(timeout int) *http.Client {
+func NewHttpClient(timeout time.Duration) *http.Client {
 	return &http.Client{
 		Transport: &http.Transport{
 			DisableKeepAlives:   false,
@@ -34,11 +34,15 @@ func NewHttpClient(timeout int) *http.Client {
 			IdleConnTimeout:     60 * time.Second,
 			TLSClientConfig:     &tls.Config{InsecureSkipVerify: true},
 		},
-		Timeout: time.Duration(timeout) * time.Second,
+		Timeout: timeout,
 	}
 }
 
 func Request(method string, url string, header map[string]string, query map[string]string, body io.Reader, resultPointer interface{}) (resBytes []byte, err error) {
+	return RequestByClient(httpClient, method, url, header, query, body, resultPointer)
+}
+
+func RequestByClient(httpClient *http.Client, method string, url string, header map[string]string, query map[string]string, body io.Reader, resultPointer interface{}) (resBytes []byte, err error) {
 	req, err := http.NewRequest(method, url, body)
 	if err != nil {
 		return nil, err
