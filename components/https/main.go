@@ -68,6 +68,7 @@ func RequestByClient(httpClient *http.Client, method string, url string, header 
 	if err != nil {
 		return nil, nil, err
 	}
+	defer res.Body.Close()
 	resBytes, err = ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, res, err
