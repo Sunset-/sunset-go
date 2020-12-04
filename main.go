@@ -1,13 +1,10 @@
 package main
 
 import (
-	"context"
 	"crypto/tls"
 	"fmt"
 	"github.com/Sunset-/sunset-go/utils/casts"
 	"github.com/influxdata/influxdb/client/v2"
-	jsoniter "github.com/json-iterator/go"
-	"github.com/shirou/gopsutil/net"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -19,18 +16,6 @@ const (
 	username = "root"
 	password = "Netposa123"
 )
-
-func getIo() map[string][]uint64{
-	m := make(map[string][]uint64)
-	stats,_ := net.IOCounters(true)
-	for _,s := range stats{
-		if s.Name!="以太网"{
-			continue
-		}
-		m[s.Name] = []uint64{s.BytesRecv,s.BytesSent}
-	}
-
-}
 
 func main() {
 	conn, err := client.NewHTTPClient(client.HTTPConfig{
